@@ -3,11 +3,6 @@
   <html lang="en">
   <head>
     <title>Flask_Chat_App</title>
-    <style>
-      .sender {
-
-      }
-    </style>
   </head>
   <body>
 
@@ -48,28 +43,20 @@
         for (let i = 1; i < lngth; i++){
           classes.push($( 'div' )[i].id)
         }
-        var dt = new Date()
-        console.log(dt)
+        console.log(classes)
         for (let i = 0; i < l; i++){
-          if (classes.includes(msg.msg_cntr) == false){
-            console.log(msg.status)
-            if (msg.status == 'sender'){
-            var stroka = '<div id="' + msg.msg_cntr + '"' + ' style="position: absolute;left: 100px;top: ' + String(20 * msg.msg_cntr) + 'px">' + '</div>'
-            $( 'body' ).append( stroka )
-            }
-            else{
-              var stroka = '<div id="' + msg.msg_cntr + '"' + ' style="position: absolute;top: ' + String(20 * msg.msg_cntr) + 'px">' + '</div>'
-              console.log(stroka)
-              $( 'body' ).append( stroka )
-            }
-            var elements = document.getElementById(String(msg.msg_cntr))
-
-
-            elements.innerText = msg.cntr[i] + ' ' + msg.ip[i]}
+          if (classes.includes(msg.ip[i]) == false){
+            $( 'div.message_holder' ).append( '<div id="' + msg.ip[i] + '"' + '>' + '</div>' )}
+          var elements = document.getElementById(msg.ip[i])[0]
+          elements.innerText = msg.cntr[i] + ' ' + msg.ip[i]
 
 
         }
 
+
+
+         console.log($('div')[1].className , elements.className)
+         console.log($('div')[1])
 
 
       })
