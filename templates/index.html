@@ -1,0 +1,67 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Flask_Chat_App</title>
+  </head>
+  <body>
+
+    <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+    <div class="message_holder"></div>
+
+    <form action="" method="POST">
+      <input type="submit"/>
+    </form>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script type="text/javascript">
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+      socket.on( 'connect', function() {
+        socket.emit( 'my event', {
+          data: 'User Connected'
+        } )
+        var form = $( 'form' ).on( 'submit', function( e ) {
+          e.preventDefault()
+          let user_name = 'useless'
+          let user_input = 'shit'
+          socket.emit( 'my event', {
+            user_name : user_name,
+            message : user_input
+          } )
+          $( 'input.message' ).val( '' ).focus()
+        } )
+      } )
+      socket.on( 'my response', function( msg ) {
+        $( 'h3' ).remove()
+        console.log(document)
+        let l = msg.ip.length
+        const lngth = $( 'div' ).length
+        const classes = new Array();
+        for (let i = 1; i < lngth; i++){
+          classes.push($( 'div' )[i].className)
+        }
+        console.log(classes)
+        for (let i = 0; i < l; i++){
+          if (classes.includes(msg.ip[i]) == false){
+            $( 'div.message_holder' ).append( '<div class="' + msg.ip[i] + '"' + '>' + '</div>' )}
+          var elements = document.getElementsByClassName(msg.ip[i])[0]
+          elements.innerText = msg.cntr[i] + ' ' + msg.ip[i]
+
+
+        }
+         var elements = document.getElementsByClassName('192.168.1.70')[0]
+
+
+         console.log($('div')[1].className , elements.className)
+         console.log($('div')[1])
+
+
+      })
+
+    </script>
+
+  </body>
+  </html>
